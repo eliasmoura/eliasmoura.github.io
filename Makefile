@@ -11,7 +11,7 @@ build_dir:
 	@mkdir -p ${STATIC_DIR}/img
 
 html/%.html: src/%.adoc
-	asciidoc -o - > $@ -e -f asciidoc.conf -f html4.conf -f lang-en.conf $^
+	asciidoc -o - > $@ -e -f asciidoc.conf -f html5.conf -f lang-en.conf $^
 
 ${STATIC_DIR}/css/%.css: less/%.less
 	lessc $^ $@
