@@ -3,7 +3,7 @@ prefix?=/srv/noobkotto/blog
 BUILD_DIR=html
 STATIC_DIR=${BUILD_DIR}/static
 
-all: build_dir ${STATIC_DIR}/css/blog.css html/about.html
+all: build_dir ${STATIC_DIR}/css/blog.css ${BUILD_DIR}/about.html
 
 build_dir:
 	@mkdir -p ${STATIC_DIR}/css
