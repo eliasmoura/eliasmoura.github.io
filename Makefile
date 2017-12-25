@@ -20,6 +20,6 @@ install:
 	mv html ${DESTDIR}/${prefix}/
 
 clean:
-	-rm html/*.html html/css/*.css
+	-rm -r ${BUILD_DIR}
 
 .PHONY: all build_dir
