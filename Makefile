@@ -18,14 +18,14 @@ build_dir:
 src/index.adoc:
 	./tools/build_index.sh > src/index.adoc
 
-html/%.html: src/%.adoc
+${BUILD_DIR}/%.html: src/%.adoc
 	asciidoc -o - > $@ -e -f asciidoc.conf -f html5.conf -f lang-en.conf -a website=http://www.noobkoto.com/ $^
 
 ${STATIC_DIR}/css/%.css: less/%.less
 	lessc $^ $@
 
 ${STATIC_DIR}/javascript/%.js: javascript/%.ts
-	@tsc --outFile $@ $^
+	-tsc --outFile $@ $^
 
 install:
 	install -d ${DESTDIR}${prefix}/${BLOG}
