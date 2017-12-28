@@ -1,6 +1,6 @@
 
 prefix ?= /srv/noobkotto
-DESTDIR ?= /
+DESTDIR ?= /#root dir
 BUILD_DIR=html
 STATIC_DIR=${BUILD_DIR}/static
 BLOG=blog
@@ -25,10 +25,11 @@ ${STATIC_DIR}/css/%.css: less/%.less
 	lessc $^ $@
 
 ${STATIC_DIR}/javascript/%.js: javascript/%.ts
-	-tsc --outFile $@ $^
+	tsc --outFile $@ $^
 
 ${STATIC_DIR}/img/%.jpg: img/%.jpg
 	cp $^ $@
+
 ${STATIC_DIR}/img/%.png: img/%.png
 	cp $^ $@
 
