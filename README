@@ -1,1 +1,7 @@
 My blog content and such.
+
+Requeriments:
+	make
+	asciidoc
+	lessc (nodejs-less)
+	tsc(typescript)
