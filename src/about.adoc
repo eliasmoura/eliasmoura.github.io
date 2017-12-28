@@ -4,6 +4,7 @@ v1.0, 2017-12-23
 :keywords: about, blog, kotto, Elias Alves Moura
 :description: What is this blog for and who am I.
 
+image::static/img/elias_portrait_20171206_14_44_18.jpg[Elias' portrait image]
 
 I am Elias Alves Moura, Brazilian.
 I have many interests what I want to talk about in here are the things I learn about technology(programming, embedded systems, electronics) and languages.
