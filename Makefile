@@ -1,6 +1,6 @@
 
 prefix ?= /srv/noobkotto
-DESTDIR ?= #root dir
+DESTDIR ?= /
 BUILD_DIR=html
 STATIC_DIR=${BUILD_DIR}/static
 BLOG=blog
