@@ -8,7 +8,7 @@ BLOG=blog
 JS=${STATIC_DIR}/javascript/asciidoc.js
 CSS=${STATIC_DIR}/css/blog.css
 
-all: build_dir ${CSS} ${JS} src/index.adoc ${BUILD_DIR}/about.html ${BUILD_DIR}/index.html
+all: build_dir ${CSS} ${JS} ${STATIC_DIR}/img/elias_portrait_20171206_14_44_18.jpg src/index.adoc ${BUILD_DIR}/about.html ${BUILD_DIR}/index.html
 
 build_dir:
 	@mkdir -p ${STATIC_DIR}/css
@@ -27,6 +27,11 @@ ${STATIC_DIR}/css/%.css: less/%.less
 ${STATIC_DIR}/javascript/%.js: javascript/%.ts
 	-tsc --outFile $@ $^
 
+${STATIC_DIR}/img/%.jpg: img/%.jpg
+	cp $^ $@
+${STATIC_DIR}/img/%.png: img/%.png
+	cp $^ $@
+
 install:
 	install -d ${DESTDIR}${prefix}/${BLOG}
 	install -d ${DESTDIR}${prefix}/${BLOG}/static
@@ -40,5 +45,6 @@ install:
 
 clean:
 	-rm -r ${BUILD_DIR}
+	-rm src/index.adoc
 
 .PHONY: all build_dir
