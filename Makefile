@@ -33,15 +33,15 @@ ${STATIC_DIR}/img/%.png: img/%.png
 	cp $^ $@
 
 install:
-	install -d ${DESTDIR}${prefix}/${BLOG}
-	install -d ${DESTDIR}${prefix}/${BLOG}/static
-	install -d ${DESTDIR}${prefix}/${BLOG}/static/css
-	install -d ${DESTDIR}${prefix}/${BLOG}/static/javascript
-	install -d ${DESTDIR}${prefix}/${BLOG}/static/img
-	install -m 0644 ${BUILD_DIR}/*.html ${DESTDIR}${prefix}/${BLOG}/
-	install -m 0644 ${STATIC_DIR}/css/*.css ${DESTDIR}${prefix}/${BLOG}/static/css
-	install -m 0644 ${STATIC_DIR}/javascript/*.js ${DESTDIR}${prefix}/${BLOG}/static/javascript
-	install -m 0644 ${STATIC_DIR}/img/* ${DESTDIR}${prefix}/${BLOG}/static/img
+	install -d $(DESTDIR)$(prefix)/${BLOG}
+	install -d $(DESTDIR)$(prefix)/${BLOG}/static
+	install -d $(DESTDIR)$(prefix)/${BLOG}/static/css
+	install -d $(DESTDIR)$(prefix)/${BLOG}/static/javascript
+	install -d $(DESTDIR)$(prefix)/${BLOG}/static/img
+	install -m 0644 $(BUILD_DIR)/*.html $(DESTDIR)$(prefix)/$(BLOG)/
+	install -m 0644 $(STATIC_DIR)/css/*.css $(DESTDIR)$(prefix)/$(BLOG)/static/css
+	install -m 0644 $(STATIC_DIR)/javascript/*.js $(DESTDIR)$(prefix)/$(BLOG)/static/javascript
+	install -m 0644 $(STATIC_DIR)/img/* $(DESTDIR)$(prefix)/$(BLOG)/static/img
 
 clean:
 	-rm -r ${BUILD_DIR}
