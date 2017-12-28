@@ -1,11 +1,16 @@
 = About me and this blog
+Elias Alves Moura <eliasmoura.alves@gmail.com>
+v1.0, 2017-12-23
+:keywords: about, blog, kotto, Elias Alves Moura
+:description: What is this blog for and who am I.
 
-I am Elias Alves Moura, Brazilan.
-I have many interests but the one I want to put here are the things I learn about technology(programming, embeded systems, electronics) and languages.
+
+I am Elias Alves Moura, Brazilian.
+I have many interests what I want to talk about in here are the things I learn about technology(programming, embedded systems, electronics) and languages.
 Being a Brazilian make me a native Portuguese speaker, but I have interest in learning other languages.
-I learned English out of necessit during my graduation in Computer Science and the need to read some documentation/articles in English.
-I am glady I had to be forced to it as now I can watch/read/listen content in English without much problems.
+I learned English out of necessity during my graduation in Computer Science and the need to read some documentation/articles in English.
+I am gladdy I had to be forced to it as now I can watch/read/listen content in English without much problems.
 
 What I am most interested in programming is low level/system programming, though I do not have much experience on it.
-Embeded system is also something that I am hooked into now and want to have a deeper look into it.
-Of course, with embeded system came the interest in learn stuff about electronics even if just the basics to be able to put simple circuts together.
+Embedded system is also something that I am hooked into now and want to have a deeper look into it.
+Of course, with embedded system came the interest in learn stuff about electronics even if just the basics to be able to put simple circuits together.
