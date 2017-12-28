@@ -1,7 +1,9 @@
 
-prefix?=/srv/noobkotto/blog
+prefix ?= /srv/noobkotto
+DESTDIR ?= #root dir
 BUILD_DIR=html
 STATIC_DIR=${BUILD_DIR}/static
+BLOG=blog
 
 JS=${STATIC_DIR}/javascript/asciidoc.js
 CSS=${STATIC_DIR}/css/blog.css
@@ -26,7 +28,15 @@ ${STATIC_DIR}/javascript/%.js: javascript/%.ts
 	@tsc --outFile $@ $^
 
 install:
-	mv html ${DESTDIR}/${prefix}/
+	install -d ${DESTDIR}${prefix}/${BLOG}
+	install -d ${DESTDIR}${prefix}/${BLOG}/static
+	install -d ${DESTDIR}${prefix}/${BLOG}/static/css
+	install -d ${DESTDIR}${prefix}/${BLOG}/static/javascript
+	install -d ${DESTDIR}${prefix}/${BLOG}/static/img
+	install -m 0644 ${BUILD_DIR}/*.html ${DESTDIR}${prefix}/${BLOG}/
+	install -m 0644 ${STATIC_DIR}/css/*.css ${DESTDIR}${prefix}/${BLOG}/static/css
+	install -m 0644 ${STATIC_DIR}/javascript/*.js ${DESTDIR}${prefix}/${BLOG}/static/javascript
+	install -m 0644 ${STATIC_DIR}/img/* ${DESTDIR}${prefix}/${BLOG}/static/img
 
 clean:
 	-rm -r ${BUILD_DIR}
