@@ -8,15 +8,15 @@ BLOG=blog
 JS=${STATIC_DIR}/javascript/asciidoc.js
 CSS=${STATIC_DIR}/css/blog.css
 
-all: build_dir ${CSS} ${JS} ${STATIC_DIR}/img/elias_portrait_20171206_14_44_18.jpg src/index.adoc ${BUILD_DIR}/about.html ${BUILD_DIR}/index.html
+all: build_dir ${CSS} ${JS} ${STATIC_DIR}/img/elias_portrait_20171206_14_44_18.jpg src/archive.adoc ${BUILD_DIR}/about.html ${BUILD_DIR}/archive.html
 
 build_dir:
 	@mkdir -p ${STATIC_DIR}/css
 	@mkdir -p ${STATIC_DIR}/javascript
 	@mkdir -p ${STATIC_DIR}/img
 
-src/index.adoc:
-	./tools/build_index.sh > src/index.adoc
+src/archive.adoc:
+	./tools/build_archive.sh > src/archive.adoc
 
 ${BUILD_DIR}/%.html: src/%.adoc
 	asciidoc -o - > $@ -e -f asciidoc.conf -f html5.conf -f lang-en.conf -a website=http://www.noobkoto.com/ $^
@@ -46,6 +46,6 @@ install:
 
 clean:
 	-rm -r ${BUILD_DIR}
-	-rm src/index.adoc
+	-rm src/archive.adoc
 
 .PHONY: all build_dir
