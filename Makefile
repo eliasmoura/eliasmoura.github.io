@@ -8,7 +8,7 @@ BLOG=blog
 JS=${STATIC_DIR}/javascript/asciidoc.js
 CSS=${STATIC_DIR}/css/blog.css
 
-all: build_dir ${CSS} ${JS} ${STATIC_DIR}/img/elias_portrait_20171206_14_44_18.jpg src/archive.adoc ${BUILD_DIR}/about.html ${BUILD_DIR}/archive.html
+all: build_dir ${CSS} ${JS} ${STATIC_DIR}/img/carro_projeto_robotica_2008.jpg ${STATIC_DIR}/img/elias_portrait_20171206_14_44_18.jpg src/archive.adoc ${BUILD_DIR}/about.html ${BUILD_DIR}/archive.html
 
 build_dir:
 	@mkdir -p ${STATIC_DIR}/css
@@ -33,7 +33,7 @@ ${STATIC_DIR}/img/%.jpg: img/%.jpg
 ${STATIC_DIR}/img/%.png: img/%.png
 	cp $^ $@
 
-install:
+install: all
 	install -d $(DESTDIR)$(prefix)/${BLOG}
 	install -d $(DESTDIR)$(prefix)/${BLOG}/static
 	install -d $(DESTDIR)$(prefix)/${BLOG}/static/css
