@@ -6,7 +6,7 @@ STATIC_DIR=${BUILD_DIR}/static
 BLOG=blog
 
 JS=${STATIC_DIR}/javascript/asciidoc.js
-CSS=${STATIC_DIR}/css/blog.css
+CSS=${STATIC_DIR}/css/blog.css ${STATIC_DIR}/css/pygments.css
 IMAGES=${STATIC_DIR}/img/carro_projeto_robotica_2008.jpg ${STATIC_DIR}/img/elias_portrait_20171206_14_44_18.jpg
 
 all: build_dir ${CSS} ${JS} ${IMAGES} src/archive.adoc ${BUILD_DIR}/about.html ${BUILD_DIR}/archive.html
@@ -20,7 +20,7 @@ src/archive.adoc:
 	./tools/build_archive.sh > src/archive.adoc
 
 ${BUILD_DIR}/%.html: src/%.adoc
-	asciidoc -o - > $@ -e -f asciidoc.conf -f html5.conf -f lang-en.conf -a website=http://www.noobkoto.com/ $^
+	asciidoc -o - > $@ -e -f asciidoc.conf -f html5.conf -f filters/source/source-highlight-filter.conf -f lang-en.conf -a website=http://www.noobkoto.com/ $^
 
 ${STATIC_DIR}/css/%.css: less/%.less
 	lessc $^ $@
