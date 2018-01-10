@@ -55,7 +55,7 @@ Before writing specifics details, the structure of the of the project looks like
 
 <6> Where the asciidoc files I write will be.
 
-<7> Tools I create to generate the some pages.
+<7> Tools I create to generate the some pages. They will be explained in the second part of this series.
 
 I use the switch `-e` so that asciidoc do not pull in system/user configurations and I pass in all the "conf" files needed in the command line. I am using the html5 backend and made some modifications to its layout. Some of those details will be explained in the next post. For now, bellow goes the `Makefile` that made for this project.
 
