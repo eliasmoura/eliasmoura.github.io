@@ -7,7 +7,7 @@ printf ":keywords: archive, blog, noobkotto\\n:description: Kotto's blog.\\n\\n"
 for f in src/*.adoc; do
   git log --diff-filter=A --follow --format="%at $f" -- "$f" | tail -1;
 done | sort --reverse | head -n 3 | while read -r date_ doc; do
-  link="${doc#src}"
+  link="${doc#src/}"
   link="${link%adoc}html"
   title="$(head -n 1 "$doc")"
   title="${title#= }"

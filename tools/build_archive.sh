@@ -7,8 +7,7 @@ printf "= Index\\nbuild_archive.sh\\n:keywords: archive, blog, noobkotto\\n:desc
 for f in src/*.adoc; do
   git log --diff-filter=A --follow --format="%at $f" -- "$f" | tail -1;
 done | sort | while read -r date_ doc; do
-  link=$doc
-  link=${link#src}
+  link=${doc#src/}
   title="$(head -n 1 "$doc")"
-  printf "%s link:%s[%s]\\n"  "$(LANG=C date '+%Y-%m-%d' -d @"$date_")" "${link%adoc}html" "${title#= }"
+  printf "%s link:%s[%s]\\n\\n"  "$(LANG=C date '+%Y-%m-%d' -d @"$date_")" "${link%adoc}html" "${title#= }"
 done
