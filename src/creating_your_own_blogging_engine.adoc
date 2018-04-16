@@ -1,7 +1,7 @@
 = Creating Your Own Blogging Engine
 Elias Alves Moura <eliasmoura.alves@gmail.com>
 v1.0, 2018-01-06
-:keywords: about, blog, blogging, engine, noobkotto
+:keywords: blog, blogging, engine, noobkotto
 :description: My thoughts/log on creating your own blogging engine
 
 I like to try stuff on my own instead of using the already built ones.

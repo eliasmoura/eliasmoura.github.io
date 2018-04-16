@@ -1,3 +1,9 @@
+= Creating Your Own Blogging Engine - part 2
+Elias Alves Moura <eliasmoura.alves@gmail.com>
+v1.0, 2018-04-04
+:keywords: blog, blogging, engine, noobkotto
+:description: Second part of my thoughts/log on creating your own blogging engine
+
 I wanted a method to blog without to bother with keeping the date and, if possible, using just git to create the publish date.
 It "works", but it has a major downfall that will be explained later.
 The server has a hook to rebuild the blog every time a commit is
