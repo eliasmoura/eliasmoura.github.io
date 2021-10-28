@@ -2,7 +2,7 @@
 
 # Print the archive.adoc to stdout using `git log` + 'coreutils utilits' to list and order the adoc files by date.
 
-printf ":keywords: archive, blog, noobkotto\\n:description: Kotto's blog.\\n\\n"
+printf ":keywords: archive, blog, eliasmoura\\n:description: Elias Moura's blog.\\n\\n"
 
 for f in src/*.adoc; do
   git log --diff-filter=A --follow --format="%at $f" -- "$f" | tail -1;

@@ -1,9 +1,10 @@
 
 prefix ?= /srv/noobkotto
 DESTDIR ?= /#root dir
-BUILD_DIR=html
+BUILD_DIR=docs
 STATIC_DIR=${BUILD_DIR}/static
 BLOG=blog
+WEBSITE=https://eliasmoura.github.io
 
 JS=$(STATIC_DIR)/javascript/asciidoc.js
 CSS=$(STATIC_DIR)/css/blog.css $(STATIC_DIR)/css/pygments.css
@@ -30,10 +31,10 @@ src/index.adoc:
 	./tools/build_index.sh > src/index.adoc
 
 $(BUILD_DIR)/%.html: src/%.adoc
-	asciidoc -o - > $@ -e $(ASCIIDOC_CONFIG) -a website=http://www.noobkoto.com/ $^
+	asciidoc -o - > $@ -e $(ASCIIDOC_CONFIG) -a website=$(WEBSITE) $^
 
-${STATIC_DIR}/css/%.css: less/%.less
-	lessc $^ $@
+${STATIC_DIR}/css/%.css: css/%.css
+	cp $^ $@
 
 $(STATIC_DIR)/javascript/%.js: javascript/%.ts
 	tsc --outFile $@ $^
