@@ -4,7 +4,7 @@
 
 printf ":keywords: archive, blog, eliasmoura\\n:description: Elias Moura's blog.\\n\\n"
 
-find src/blog -name \*.adoc -type f | while read -r f; do
+find src/ -name \*.adoc -type f | while read -r f; do
   git log --diff-filter=A --follow --format="%at $f" -- "$f" | tail -1;
 done | sort --reverse | head -n 3 | while read -r date_ doc; do
   link="${doc#src/}"

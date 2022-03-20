@@ -4,7 +4,7 @@
 
 printf '= Index\nbuild_archive.sh\n:keywords: archive, blog, eliasmoura\n:description: Elias Moura's Blog's post archive.\n\n'
 
-find src/blog -name \*.adoc | while read -r f; do
+find src/ -name \*.adoc | while read -r f; do
   git log --diff-filter=A --follow --format="%at $f" -- "$f" | tail -1;
 done | sort | while read -r date_ doc; do
   link=${doc#src/}

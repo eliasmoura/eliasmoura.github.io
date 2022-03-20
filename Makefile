@@ -25,12 +25,12 @@ build_dir:
 	@mkdir -p $(STATIC_DIR)/img/galery/portugal_views
 
 src/archive.adoc:
-	./tools/build_archive.sh > src/blog/archive.adoc
+	./tools/build_archive.sh > $@
 
 src/index.adoc:
-	./tools/build_index.sh > src/blog/index.adoc
+	./tools/build_index.sh > $@
 
-$(BUILD_DIR)/%.html: src/blog/%.adoc
+$(BUILD_DIR)/%.html: src/%.adoc
 	asciidoc -o - > $@ -e $(ASCIIDOC_CONFIG) -a website=$(WEBSITE) $^
 
 $(STATIC_DIR)/javascript/%.js: javascript/%.ts
