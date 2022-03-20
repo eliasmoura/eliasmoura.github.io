@@ -114,7 +114,7 @@ function footnotes () {
   var entriesToRemove = [];
   for (i = 0; i < noteholder.childNodes.length; i++) {
     var entry:any = noteholder.childNodes[i];
-    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+    if (entry.nodeName.toLowerCase() === 'div' && entry.getAttribute("class") === "footnote")
       entriesToRemove.push(entry);
   }
   for (i = 0; i < entriesToRemove.length; i++) {

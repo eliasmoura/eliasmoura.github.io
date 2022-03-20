@@ -1,4 +1,5 @@
-html/*
+_html
+src/blog/archive.adoc
+src/blog/index.adoc
 src/archive.adoc
 src/index.adoc
-

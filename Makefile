@@ -6,7 +6,6 @@ STATIC_DIR=${BUILD_DIR}/$(BLOG)/static
 BLOG=
 WEBSITE=https://eliasmoura.github.io
 
-JS=$(STATIC_DIR)/javascript/asciidoc.js
 CSS=css/blog.css css/pygments.css
 IMAGES=img/carro_projeto_robotica_2008.jpg \
 			 img/elias_portrait_20171206_14_44_18.jpg
@@ -16,7 +15,7 @@ ASCIIDOC_CONFIG=-f asciidoc.conf -f html5.conf \
 ADOC_FILES = $(shell git ls-files src)
 POSTS = $(shell ./tools/adoc_files.sh $(BUILD_DIR))
 
-all: build_dir $(JS) $(IMAGES) all_img src/index.adoc src/archive.adoc $(POSTS) \
+all: build_dir $(IMAGES) all_img src/index.adoc src/archive.adoc $(POSTS) \
 	$(BUILD_DIR)/$(BLOG)/archive.html $(BUILD_DIR)/$(BLOG)/index.html
 
 build_dir:
@@ -32,9 +31,6 @@ src/index.adoc:
 
 $(BUILD_DIR)/%.html: src/%.adoc
 	asciidoc -o - > $@ -e $(ASCIIDOC_CONFIG) -a website=$(WEBSITE) $^
-
-$(STATIC_DIR)/javascript/%.js: javascript/%.ts
-	tsc --outFile $@ $^
 
 all_img:
 	cp -R img/* $(STATIC_DIR)/img/
@@ -54,6 +50,8 @@ install: all
 	#install -m 0644 $(BUILD_DIR)/$(BLOG) $(prefix)/$(DESTDIR)/
 	#cp -r css/* "$(prefix)/$(DESTDIR)/$(BLOG)"/static/css
 	cp -r _html/* $(prefix)/$(DESTDIR)/$(BLOG)/
+	cp -r javascript $(prefix)/$(DESTDIR)/$(BLOG)/static/
+	cp -r css $(prefix)/$(DESTDIR)/$(BLOG)/static/
 
 clean:
 	-rm -r $(BUILD_DIR)

@@ -1,7 +1,14 @@
 My blog content and such.
 
-Requeriments:
-	make
-	asciidoc
+Requeriments build this:
+  - make
+  - asciidoc
+  - sh compatible shell
+  - coreutils
+  - findutils
+  - git
+  - pygmentize(source code blocks' lighlight)
+  - awk
+
 	lessc (nodejs-less)
 	tsc(typescript)
