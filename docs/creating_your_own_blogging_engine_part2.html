@@ -3,10 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="AsciiDoc 10.1.4">
-<meta name="description" content="What is this blog for and who am I.">
-<meta name="keywords" content="about, blog, kotto, Elias Alves Moura">
+<meta name="description" content="Second part of my thoughts/log on creating your own blogging engine">
+<meta name="keywords" content="blog, blogging, engine, noobkotto">
 <meta name="viewport" content="width=device-width, initial-scale=1 maximum=scale=1">
-<title>Elias Moura's blog - About me and this blog</title>
+<title>Elias Moura's blog - Creating Your Own Blogging Engine - part 2</title>
 <link rel="stylesheet" href="static/css/blog.css" type="text/css">
 <link rel="stylesheet" href="static/css/pygments.css" type="text/css">
 
@@ -24,28 +24,112 @@ asciidoc.install();
 <span id="about"><a href="about.html">About</a></span>
 </nav>
 <div id="header">
-<h1>About me and this blog</h1>
+<h1>Creating Your Own Blogging Engine - part 2</h1>
 <span id="author">Elias Alves Moura</span> -
 <span id="email" class="monospaced">&lt;<a href="mailto:eliasmoura.alves@gmail.com">eliasmoura.alves@gmail.com</a>&gt;</span><br>
 <span id="revnumber">version 1.0,</span>
-<span id="revdate">2017-12-24</span>
+<span id="revdate">2018-04-04</span>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="static/img/elias_portrait_20171206_14_44_18.jpg" alt="Elias' portrait image">
-</div>
-</div>
-<div class="paragraph"><p>I am Elias Alves Moura, Brazilian.
-I have many interests what I want to talk about in here are the things I learn about technology(programming, embedded systems, electronics) and languages.
-Being a Brazilian make me a native Portuguese speaker, but I have interest in learning other languages.
-I learned English out of necessity during my graduation in Computer Science and the need to read some documentation/articles in English.
-I am gladdy I had to be forced to it as now I can watch/read/listen content in English without much problems.</p></div>
-<div class="paragraph"><p>What I am most interested in programming is low level/system programming, though I do not have much experience on it.
-Embedded system is also something that I am hooked into now and want to have a deeper look into it.
-Of course, with embedded system came the interest in learn stuff about electronics even if just the basics to be able to put simple circuits together.</p></div>
+<div class="paragraph"><p>I wanted a method to blog without to bother with keeping the date and, if possible, using just git to create the publish date.
+It "works", but it has a major downfall that will be explained later.
+The server has a hook to rebuild the blog every time a commit is
+pushed to it.
+The hook is this piece of <em>sh</em> code.</p></div>
+<div class="listingblock">
+<div class="title">.git/hooks/post-receive</div>
+<div class="content"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="nv">TMP_DIR</span><span class="o">=</span>build_blog.XXX
+<span class="nv">GIT_DIR</span><span class="o">=</span>/srv/git/noobkotto/blog
+<span class="nv">BLOG_DIR</span><span class="o">=</span>/srv/noobkotto/blog/
+
+<span class="nv">TMP_DIR</span><span class="o">=</span><span class="k">$(</span>mktemp -p <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="k">:-</span><span class="p">/tmp</span><span class="si">}</span><span class="s2">/&quot;</span> -d <span class="s2">&quot;</span><span class="nv">$TMP_DIR</span><span class="s2">&quot;</span><span class="k">)</span>
+
+git clone <span class="s2">&quot;</span><span class="nv">$GIT_DIR</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$TMP_DIR</span><span class="s2">&quot;</span>
+<span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$TMP_DIR</span><span class="s2">&quot;</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;++++++++++++++++++++++++++++++++++\\n%s\\n&quot;</span> <span class="s2">&quot;Building blog.&quot;</span>
+make
+make install <span class="nv">prefix</span><span class="o">=</span>srv/noobkotto/
+<span class="o">[</span> <span class="nv">$?</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">printf</span> <span class="s2">&quot;++++++++++++++++++++++++++++++++++\\n%s\\n&quot;</span> <span class="s1">&#39;Ok.&#39;</span>
+
+<span class="nb">cd</span> -
+rm -r <span class="s2">&quot;</span><span class="nv">$TMP_DIR</span><span class="s2">&quot;</span>
+</pre></div></div></div>
+<div class="paragraph"><p>When you push your new commits to the server, the git push log  will look like the example bellow.</p></div>
+<div class="literalblock">
+<div class="title">Output of pushing to the server</div>
+<div class="content monospaced">
+<pre>-&gt; git push origin master
+Counting objects: 9, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (9/9), 1.59 KiB | 812.00 KiB/s, done.
+Total 9 (delta 3), reused 0 (delta 0)
+remote: Cloning into '/tmp/build_blog.ZWv'... <b>&lt;1&gt;</b>
+remote: done.
+remote: ++++++++++++++++++++++++++++++++++
+remote: Building blog.
+make output
+remote: ++++++++++++++++++++++++++++++++++
+remote: Ok.
+remote: /srv/git/noobkotto/blog
+To noobkotto.com:/srv/git/noobkotto/blog
+   ea3578a..add8404  master -&gt; master</pre>
+</div></div>
+<div class="colist arabic"><ol>
+<li>
+<p>
+All the lines with "remote" at the beginning are from the hook shown above.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>I do auto-generation of the archive/index pages and the date of publication through git commit.
+The way it works at the moment is by using the first commit of a file as the publish date.
+This makes things easy in a way, but it also prevent me from properly using git as I can only commit when I am done with the post.
+I might be overlooking some details about the use of git, but for now
+it may suffice.</p></div>
+<div class="paragraph"><p>The other scripts that make use of git are:</p></div>
+<div class="listingblock">
+<div class="title">tools/build_archive.sh</div>
+<div class="content"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh --</span>
+
+<span class="c1"># Print the archive.adoc to stdout using `git log` + &#39;coreutils utilits&#39; to list and order the adoc files by date.</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;= Index\\nbuild_archive.sh\\n:keywords: archive, blog, noobkotto\\n:description: Blog&#39;s post archive.\\n\\n&quot;</span>
+
+<span class="k">for</span> f <span class="k">in</span> src/*.adoc<span class="p">;</span> <span class="k">do</span>
+  git log --diff-filter<span class="o">=</span>A --follow --format<span class="o">=</span><span class="s2">&quot;%at </span><span class="nv">$f</span><span class="s2">&quot;</span> -- <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span> <span class="p">|</span> tail -1<span class="p">;</span>
+<span class="k">done</span> <span class="p">|</span> sort <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> -r date_ doc<span class="p">;</span> <span class="k">do</span>
+  <span class="nv">link</span><span class="o">=</span><span class="si">${</span><span class="nv">doc</span><span class="p">#src/</span><span class="si">}</span>
+  <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>head -n <span class="m">1</span> <span class="s2">&quot;</span><span class="nv">$doc</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+  <span class="nb">printf</span> <span class="s2">&quot;%s link:%s[%s]\\n\\n&quot;</span>  <span class="s2">&quot;</span><span class="k">$(</span><span class="nv">LANG</span><span class="o">=</span>C date <span class="s1">&#39;+%Y-%m-%d&#39;</span> -d @<span class="s2">&quot;</span><span class="nv">$date_</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">link</span><span class="p">%adoc</span><span class="si">}</span><span class="s2">html&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">title</span><span class="p">#= </span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div></div></div>
+<div class="paragraph"><p>As I am using asciidoc to generate the pages, I might as well generate the archive and index pages as .adoc files and then use asciidoc to make the rest.</p></div>
+<div class="listingblock">
+<div class="title">tools/build_index.sh</div>
+<div class="content"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh --</span>
+
+<span class="c1"># Print the archive.adoc to stdout using `git log` + &#39;coreutils utilits&#39; to list and order the adoc files by date.</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;:keywords: archive, blog, noobkotto\\n:description: Kotto&#39;s blog.\\n\\n&quot;</span>
+
+<span class="k">for</span> f <span class="k">in</span> src/*.adoc<span class="p">;</span> <span class="k">do</span>
+  git log --diff-filter<span class="o">=</span>A --follow --format<span class="o">=</span><span class="s2">&quot;%at </span><span class="nv">$f</span><span class="s2">&quot;</span> -- <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span> <span class="p">|</span> tail -1<span class="p">;</span>
+<span class="k">done</span> <span class="p">|</span> sort --reverse <span class="p">|</span> head -n <span class="m">3</span> <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> -r date_ doc<span class="p">;</span> <span class="k">do</span>
+  <span class="nv">link</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">doc</span><span class="p">#src/</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="nv">link</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">link</span><span class="p">%adoc</span><span class="si">}</span><span class="s2">html&quot;</span>
+  <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>head -n <span class="m">1</span> <span class="s2">&quot;</span><span class="nv">$doc</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+  <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">title</span><span class="p">#= </span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="nb">printf</span> <span class="s2">&quot;\\n== link:%s[%s]\\n%s\\n&quot;</span> <span class="s2">&quot;</span><span class="nv">$link</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$title</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="k">$(</span><span class="nv">LANG</span><span class="o">=</span>C date <span class="s1">&#39;+%Y-%m-%d&#39;</span> -d @<span class="s2">&quot;</span><span class="nv">$date_</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+  awk <span class="s1">&#39;f{print} /^:description:/{f=1}&#39;</span> <span class="s2">&quot;</span><span class="nv">$doc</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div></div></div>
+<div class="paragraph"><p>I shall try using tags.</p></div>
 </div>
 </div>
 </div>

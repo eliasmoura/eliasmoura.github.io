@@ -30,8 +30,8 @@ src/archive.adoc:
 src/index.adoc:
 	./tools/build_index.sh > src/blog/index.adoc
 
-$(BUILD_DIR)/%.html: $(ADOC_FILES)
-	asciidoc -o - > $@ -e $(ASCIIDOC_CONFIG) -a website=$(WEBSITE) $<
+$(BUILD_DIR)/%.html: src/blog/%.adoc
+	asciidoc -o - > $@ -e $(ASCIIDOC_CONFIG) -a website=$(WEBSITE) $^
 
 $(STATIC_DIR)/javascript/%.js: javascript/%.ts
 	tsc --outFile $@ $^
