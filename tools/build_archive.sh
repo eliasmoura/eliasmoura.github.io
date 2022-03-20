@@ -2,9 +2,9 @@
 
 # Print the archive.adoc to stdout using `git log` + 'coreutils utilits' to list and order the adoc files by date.
 
-printf "= Index\\nbuild_archive.sh\\n:keywords: archive, blog, eliasmoura\\n:description: Elias Moura's Blog's post archive.\\n\\n"
+printf '= Index\nbuild_archive.sh\n:keywords: archive, blog, eliasmoura\n:description: Elias Moura's Blog's post archive.\n\n'
 
-for f in src/*.adoc; do
+find src/blog -name \*.adoc | while read -r f; do
   git log --diff-filter=A --follow --format="%at $f" -- "$f" | tail -1;
 done | sort | while read -r date_ doc; do
   link=${doc#src/}
